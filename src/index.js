@@ -18,7 +18,7 @@ app.get('/file', function (req, res) {
 
 app.get('/', function (req, res) {
 
-    exec("path\\to\\your\\ip.bat", function(err, stdout, stderr) {
+    exec("C:\\Users\\prasu\\Documents\\Web-Dev-Projects\\Cohort-Projects\\Remote-File-Sharer\\ip.bat", function(err, stdout, stderr) {
         if (err) {
             console.log('Error: ' + stderr);
         } else {
@@ -32,9 +32,10 @@ app.get('/', function (req, res) {
             if(err) {
                 console.log(err);
             } else {
-                for(let i = 763; i <= 763 + 15; i++) {
+                let ind = data.indexOf('IPv4 Address. . . . . . . . . . . : ') + 'IPv4 Address. . . . . . . . . . . : '.length;
+                for(let i = ind; i <= ind + 15; i++) {
                     if(data.charAt(i) == '\n') {
-                        ip = data.substring(763, i-1);
+                        ip = data.substring(ind, i-1);
                         break;
                     }
                 }
@@ -61,11 +62,11 @@ app.get('/', function (req, res) {
 });
 
 app.get('/getFile', function(req, res) {
-    fs.readdir('path\\to\\your\\File\\directory', (err, files) => {
+    fs.readdir('C:\\Users\\prasu\\Desktop\\Dumb-Works\\Remote-File-Sharer\\File', (err, files) => {
         if (err) {
             return res.status(500).json({ error: 'Failed to retrieve file' });
         }
-        const filepath = path.join('path\\to\\your\\File\\directory', files[0]);
+        const filepath = path.join('C:\\Users\\prasu\\Desktop\\Dumb-Works\\Remote-File-Sharer\\File', files[0]);
         res.download(filepath);
     });
     
